@@ -39,6 +39,7 @@ image.setAttribute(
       pointer-events: none;
     `
 );
+image.setAttribute("src", GRID);
 wrapper.appendChild(image);
 
 const selectImage = () => {
@@ -55,6 +56,7 @@ const handleKeyDown = function(event) {
   if (event.keyCode === 17) {
     state.settings = !state.settings;
     wrapper.style.pointerEvents = state.settings ? null : "none";
+    wrapper.style.backgroundColor = state.settings ? '#0005' : null;
   } else if (state.settings && event.keyCode === 49) {
     state.position = { x: 0, y: 0 };
     image.style.transform = `

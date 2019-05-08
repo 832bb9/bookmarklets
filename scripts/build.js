@@ -9,19 +9,19 @@ const apps = [
 ];
 
 const renderApp = ({ description, path }) => {
-  // const fileContent = fs.readFileSync(path).toString();
+  const fileContent = fs.readFileSync(path).toString();
 
-  // const hash = require("crypto")
-  //   .createHash("sha256")
-  //   .update(fileContent)
-  //   .digest("hex");
+  const hash = require("crypto")
+    .createHash("sha256")
+    .update(fileContent)
+    .digest("hex");
 
-  // javascript:(function() {
-  //   const APP_ID = '${hash}';
-  //   ${fileContent}
-  // })();
+  const bookmarklet = `javascript:(function() {
+    const APP_ID = '${hash}';
+    ${fileContent}
+  })();`;
 
-  return `<a href="">${description}</a>`;
+  return `<a href="${encodeURI(bookmarklet)}">${description}</a>`;
 };
 
 fs.mkdirSync(path.resolve(__dirname, "../build"), { recursive: true });
