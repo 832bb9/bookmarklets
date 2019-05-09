@@ -57,7 +57,7 @@ const handleKeyDown = function(event) {
   if (event.keyCode === 17) {
     state.settings = !state.settings;
     wrapper.style.pointerEvents = state.settings ? null : "none";
-    wrapper.style.backgroundColor = state.settings ? '#0005' : null;
+    wrapper.style.backgroundColor = state.settings ? "#0005" : null;
   } else if (state.settings && event.keyCode === 49) {
     state.position = { x: 0, y: 0 };
     image.style.transform = `
@@ -77,25 +77,25 @@ const handleKeyDown = function(event) {
   } else if (state.settings && event.keyCode === 81) {
     window[APP_ID].unmount();
   } else if (state.settings && event.keyCode === 38) {
-    state.position.y = state.position.y - 1
+    state.position.y = state.position.y - 1;
     image.style.transform = `
         translateX(${state.position.x}px)
         translateY(${state.position.y}px)
       `;
   } else if (state.settings && event.keyCode === 37) {
-    state.position.x = state.position.x - 1
+    state.position.x = state.position.x - 1;
     image.style.transform = `
         translateX(${state.position.x}px)
         translateY(${state.position.y}px)
       `;
   } else if (state.settings && event.keyCode === 39) {
-    state.position.x = state.position.x + 1
+    state.position.x = state.position.x + 1;
     image.style.transform = `
         translateX(${state.position.x}px)
         translateY(${state.position.y}px)
       `;
   } else if (state.settings && event.keyCode === 40) {
-    state.position.y = state.position.y + 1
+    state.position.y = state.position.y + 1;
     image.style.transform = `
         translateX(${state.position.x}px)
         translateY(${state.position.y}px)
