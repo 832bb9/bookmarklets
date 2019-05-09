@@ -26,6 +26,7 @@ wrapper.setAttribute(
   
     display: flex;
     justify-content: center;
+    align-items: flex-start;
   
     pointer-events: none;
   `
