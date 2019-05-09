@@ -76,6 +76,30 @@ const handleKeyDown = function(event) {
     selectImage();
   } else if (state.settings && event.keyCode === 81) {
     window[APP_ID].unmount();
+  } else if (state.settings && event.keyCode === 38) {
+    state.position.y = state.position.y - 1
+    image.style.transform = `
+        translateX(${state.position.x}px)
+        translateY(${state.position.y}px)
+      `;
+  } else if (state.settings && event.keyCode === 37) {
+    state.position.x = state.position.x - 1
+    image.style.transform = `
+        translateX(${state.position.x}px)
+        translateY(${state.position.y}px)
+      `;
+  } else if (state.settings && event.keyCode === 39) {
+    state.position.x = state.position.x + 1
+    image.style.transform = `
+        translateX(${state.position.x}px)
+        translateY(${state.position.y}px)
+      `;
+  } else if (state.settings && event.keyCode === 40) {
+    state.position.y = state.position.y + 1
+    image.style.transform = `
+        translateX(${state.position.x}px)
+        translateY(${state.position.y}px)
+      `;
   }
 };
 
