@@ -30,6 +30,6 @@ if (!window[APP_ID]) {
 
 window[APP_ID].unmount = () => {
   document.removeEventListener("keydown", handleKeyDown);
-  wrapper.remove();
+  style.remove();
   window[APP_ID].unmount = null;
 };
