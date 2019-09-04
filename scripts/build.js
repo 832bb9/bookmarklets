@@ -5,6 +5,10 @@ const apps = [
   {
     description: "Pixel Perfect",
     path: path.resolve(__dirname, "../src/pixel-perfect.js")
+  },
+  {
+    description: "Highlight",
+    path: path.resolve(__dirname, "../src/highlight.js")
   }
 ];
 
