@@ -25,7 +25,7 @@ const renderApp = ({ description, path }) => {
     ${fileContent}
   })();`;
 
-  return `<a href="${encodeURI(bookmarklet)}">${description}</a>`;
+  return `<li><a href="${encodeURI(bookmarklet)}">${description}</a></li>`;
 };
 
 fs.mkdirSync(path.resolve(__dirname, "../build"), { recursive: true });
@@ -41,7 +41,7 @@ fs.writeFileSync(
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Bookmarklets</title>
   </head>
-  <body>${apps.map(renderApp)}</body>
+  <body><ul>${apps.map(renderApp).join('')}</ul></body>
 </html>
 `
 );
