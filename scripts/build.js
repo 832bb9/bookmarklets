@@ -9,6 +9,10 @@ const apps = [
   {
     description: "Highlight",
     path: path.resolve(__dirname, "../src/highlight.js")
+  },
+  {
+    description: "Fill Table",
+    path: path.resolve(__dirname, "../src/fill-table.js")
   }
 ];
 
