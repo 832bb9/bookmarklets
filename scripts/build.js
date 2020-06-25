@@ -13,6 +13,10 @@ const apps = [
   {
     description: "Fill Table",
     path: path.resolve(__dirname, "../src/fill-table.js")
+  },
+  {
+    description: "Update & Squash & Merge",
+    path: path.resolve(__dirname, "../src/github-auto-merge.js")
   }
 ];
 
