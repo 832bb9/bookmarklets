@@ -1,11 +1,42 @@
 const INTERVAL_TIME = 1000;
 
-const UPDATE_BRANCH_FORM_SELECTOR = `[action$=update_branch]`;
+const selectUpdateBranchBtn = () => {
+  return Array.from(document.querySelectorAll("button")).find(
+    (node) => node.innerText === "Update branch"
+  );
+};
+
+const selectSquashAndMergeBtn = () => {
+  return Array.from(document.querySelectorAll("button")).find(
+    (node) => node.innerText === "Squash and merge"
+  );
+};
+
+const selectConfirmSquashAndMergeBtn = () => {
+  return Array.from(document.querySelectorAll("button")).find(
+    (node) => node.innerText === "Confirm squash and merge"
+  );
+};
 
 const intervalId = setInterval(() => {
-  const updateBranch = document.querySelector(UPDATE_BRANCH_FORM_SELECTOR);
+  const updateBranchBtn = selectUpdateBranchBtn();
 
-  if (updateBranch) {
-    updateBranch.submit();
+  if (updateBranchBtn) {
+    updateBranchBtn.click();
+    return;
+  }
+
+  const squashAndMergeBtn = selectSquashAndMergeBtn();
+
+  if (squashAndMergeBtn) {
+    squashAndMergeBtn.click();
+    return;
+  }
+
+  const confirmSquashAndMergeBtn = selectConfirmSquashAndMergeBtn();
+
+  if (confirmSquashAndMergeBtn) {
+    confirmSquashAndMergeBtn.click();
+    return;
   }
 }, INTERVAL_TIME);
