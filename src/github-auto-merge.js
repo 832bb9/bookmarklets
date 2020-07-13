@@ -18,6 +18,14 @@ const selectConfirmSquashAndMergeBtn = () => {
   );
 };
 
+const getPullRequestDescriptionText = () => {
+  return document.querySelector('#discussion_bucket .js-discussion:first-child .comment-body').innerText;
+};
+
+const selectSquashAndMergeDescriptionTextarea = () => {
+  return document.querySelector('#merge_message_field');
+};
+
 const intervalId = setInterval(() => {
   const updateBranchBtn = selectUpdateBranchBtn();
 
@@ -34,8 +42,12 @@ const intervalId = setInterval(() => {
   }
 
   const confirmSquashAndMergeBtn = selectConfirmSquashAndMergeBtn();
+  const pullRequestDescriptionText = getPullRequestDescriptionText();
 
   if (confirmSquashAndMergeBtn) {
+    if (pullRequestDescriptionText) {
+      selectSquashAndMergeDescriptionTextarea().value = pullRequestDescriptionText;
+    }
     confirmSquashAndMergeBtn.click();
     return;
   }
