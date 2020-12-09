@@ -1,4 +1,5 @@
 const INTERVAL_TIME = 1000;
+const INITIAL_DESCRIPTION_TEXT = 'No description provided.'
 
 const selectUpdateBranchBtn = () => {
   return Array.from(document.querySelectorAll("button")).find(
@@ -19,7 +20,8 @@ const selectConfirmSquashAndMergeBtn = () => {
 };
 
 const getPullRequestDescriptionText = () => {
-  return document.querySelector('#discussion_bucket .js-discussion:first-child .comment-body').innerText;
+  const innerText = document.querySelector('#discussion_bucket .js-discussion:first-child .comment-body').innerText
+  return innerText === INITIAL_DESCRIPTION_TEXT ? '' : innerText
 };
 
 const selectSquashAndMergeDescriptionTextarea = () => {
