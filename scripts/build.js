@@ -57,7 +57,7 @@ const renderApp = (app) => {
 fs.mkdirSync(path.resolve(__dirname, "../build"), { recursive: true });
 
 fs.writeFileSync(
-  path.resolve(__dirname, "../build/index.html"),
+  path.resolve(__dirname, "../build/apps.html"),
   `
 <!DOCTYPE html>
 <html lang="en">
@@ -74,10 +74,8 @@ fs.writeFileSync(
 `
 );
 
-fs.mkdirSync(path.resolve(__dirname, "../build/data"), { recursive: true });
-
 fs.writeFileSync(
-  path.resolve(__dirname, "../build/data/index.json"),
+  path.resolve(__dirname, "../build/apps.json"),
   JSON.stringify({
     build: BUILD_TIME,
     apps: apps.reduce((acc, app) => {
