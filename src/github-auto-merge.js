@@ -159,13 +159,7 @@ const main = () => {
 
   createApp(
     ({ root, state, update, after }) => {
-      after(() => {
-        if (!autostart) {
-          return;
-        }
-
-        autostart = false;
-
+      const onStartInterval = () => {
         intervalId = startInterval();
 
         update((current) => ({
@@ -175,33 +169,39 @@ const main = () => {
             status: "pending",
           },
         }));
+      };
+
+      const onStopInterval = () => {
+        clearInterval(intervalId);
+
+        update((current) => ({
+          ...current,
+          interval: {
+            ...current.interval,
+            status: "idle",
+          },
+        }));
+      };
+
+      const onToggleInterval = () => {
+        if (state.interval.status === "idle") {
+          onStartInterval();
+        } else if (state.interval.status === "pending") {
+          onStopInterval();
+        }
+      };
+
+      after(() => {
+        if (!autostart) {
+          return;
+        }
+
+        autostart = false;
+
+        onToggleInterval();
       });
 
       after(() => {
-        const onToggleInterval = () => {
-          if (state.interval.status === "idle") {
-            intervalId = startInterval();
-
-            update((current) => ({
-              ...current,
-              interval: {
-                ...current.interval,
-                status: "pending",
-              },
-            }));
-          } else if (state.interval.status === "pending") {
-            clearInterval(intervalId);
-
-            update((current) => ({
-              ...current,
-              interval: {
-                ...current.interval,
-                status: "idle",
-              },
-            }));
-          }
-        };
-
         root
           .querySelector('[data-ref="toggle-interval"]')
           .addEventListener("click", onToggleInterval);
