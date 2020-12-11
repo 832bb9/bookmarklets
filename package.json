@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "node ./scripts/build.js",
-    "deploy": "npx gh-pages --dist build --user \"$(git log -1 --pretty=format:\"%an <%ae>\" HEAD)\""
+    "build": "node ./scripts/build.js"
   },
   "author": "",
   "license": "ISC"

@@ -15,4 +15,4 @@ jobs:
       - name: Build
         run: npm run build
       - name: Deploy
-        run: npm run deploy
+        run: npx gh-pages --dist build
