@@ -173,7 +173,7 @@ createApp(({state, update}) => {
   initialRender: true,
   interval: {
     status: 'idle',
-  }
+  },
   updates: {
     status: 'idle',
   },
