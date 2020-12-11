@@ -134,7 +134,7 @@ let intervalId = null;
 createApp(
   ({ state, update, after }) => {
     after(() => {
-      if (!state.initialRender) {
+      if (!state.interval.autostart) {
         return;
       }
 
@@ -144,19 +144,9 @@ createApp(
         ...current,
         interval: {
           ...current.interval,
+          autostart: false,
           status: "pending",
         },
-      }));
-    });
-
-    after(() => {
-      if (!state.initialRender) {
-        return;
-      }
-
-      update((current) => ({
-        ...current,
-        initialRender: false,
       }));
     });
 
@@ -172,8 +162,8 @@ createApp(
   `;
   },
   {
-    initialRender: true,
     interval: {
+      autostart: true,
       status: "idle",
     },
     updates: {
