@@ -41,17 +41,23 @@ const hashes = apps.reduce((acc, app) => {
   return acc;
 }, {});
 
-const renderApp = (app) => {
+const codes = apps.reduce((acc, app) => {
   const content = contents[app.id];
   const hash = hashes[app.id];
 
-  const bookmarklet = `javascript:(function() {
+  const acc[app.id] = `javascript:(function() {
     const APP_ID = '${app.id}';
     const APP_HASH = '${hash}';
     ${content}
   })();`;
 
-  return `<li><a href="${encodeURI(bookmarklet)}">${app.description}</a></li>`;
+  return acc;
+}, {});
+
+const renderApp = (app) => {
+  const code = codes[app.id];
+
+  return `<li><a href="${encodeURI(code)}">${app.description}</a></li>`;
 };
 
 fs.mkdirSync(path.resolve(__dirname, "../build"), { recursive: true });
@@ -80,7 +86,7 @@ fs.writeFileSync(
     build: BUILD_TIME,
     apps: apps.reduce((acc, app) => {
       acc[app.id] = {
-        content: contents[app.id],
+        code: codes[app.id],
         hash: hashes[app.id],
       };
 
