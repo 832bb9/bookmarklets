@@ -27,7 +27,7 @@ const apps = [
 ];
 
 const contents = apps.reduce((acc, app) => {
-  acc[app.id] = fs.readFileSync(path).toString();
+  acc[app.id] = fs.readFileSync(app.path).toString();
 
   return acc;
 }, {});
