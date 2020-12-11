@@ -15,4 +15,4 @@ jobs:
       - name: Build
         run: npm run build
       - name: Deploy
-        run: npx gh-pages --dist build --repo ${{ secrets.GITHUB_TOKEN }}@github.com:${{ github.repository }}.git --user "$(git log -1 --pretty=format:"%an <%ae>" HEAD)"
+        run: npx gh-pages --dist build --repo https://${{ secrets.GITHUB_TOKEN }}@github.com:${{ github.repository }}.git --user "$(git log -1 --pretty=format:"%an <%ae>" HEAD)"
