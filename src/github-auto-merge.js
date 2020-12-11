@@ -24,8 +24,16 @@ const getPullRequestDescriptionText = () => {
   return innerText === INITIAL_DESCRIPTION_TEXT ? '' : innerText
 };
 
+const getPullRequestTitleText = () => {
+  return document.querySelector('#partial-discussion-header .js-issue-title').innerText
+};
+
 const selectSquashAndMergeDescriptionTextarea = () => {
   return document.querySelector('#merge_message_field');
+};
+
+const selectSquashAndMergeTitleInput = () => {
+  return document.querySelector('#merge_title_field');
 };
 
 const intervalId = setInterval(() => {
@@ -45,11 +53,17 @@ const intervalId = setInterval(() => {
 
   const confirmSquashAndMergeBtn = selectConfirmSquashAndMergeBtn();
   const pullRequestDescriptionText = getPullRequestDescriptionText();
+  const pullRequestTitleText = getPullRequestTitleText();
 
   if (confirmSquashAndMergeBtn) {
     if (pullRequestDescriptionText) {
       selectSquashAndMergeDescriptionTextarea().value = pullRequestDescriptionText;
     }
+
+    if (pullRequestTitleText) {
+      selectSquashAndMergeTitleInput().value = pullRequestTitleText;
+    }
+
     confirmSquashAndMergeBtn.click();
     return;
   }
