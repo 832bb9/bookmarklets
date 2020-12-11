@@ -45,7 +45,7 @@ const codes = apps.reduce((acc, app) => {
   const content = contents[app.id];
   const hash = hashes[app.id];
 
-  const acc[app.id] = `javascript:(function() {
+  acc[app.id] = `javascript:(function() {
     const APP_ID = '${app.id}';
     const APP_HASH = '${hash}';
     ${content}
