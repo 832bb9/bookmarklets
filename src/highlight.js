@@ -1,5 +1,7 @@
-if (window[APP_ID] && window[APP_ID].unmount) {
-  window[APP_ID].unmount();
+const version = `APP:${APP_ID}:${APP_HASH}`
+
+if (window[version] && window[version].unmount) {
+  window[version].unmount();
 }
 
 const style = document.createElement("style");
@@ -17,19 +19,19 @@ style.innerHTML = `
 
 const handleKeyDown = function(event) {
   if (event.keyCode === 81) {
-    window[APP_ID].unmount();
+    window[version].unmount();
   }
 };
 
 document.addEventListener("keydown", handleKeyDown);
 document.head.appendChild(style);
 
-if (!window[APP_ID]) {
-  window[APP_ID] = {};
+if (!window[version]) {
+  window[version] = {};
 }
 
-window[APP_ID].unmount = () => {
+window[version].unmount = () => {
   document.removeEventListener("keydown", handleKeyDown);
   style.remove();
-  window[APP_ID].unmount = null;
+  window[version].unmount = null;
 };

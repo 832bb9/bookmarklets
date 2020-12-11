@@ -1,5 +1,7 @@
-if (window[APP_ID] && window[APP_ID].unmount) {
-  window[APP_ID].unmount();
+const version = `APP:${APP_ID}:${APP_HASH}`
+
+if (window[version] && window[version].unmount) {
+  window[version].unmount();
 }
 
 const GRID =
@@ -75,7 +77,7 @@ const handleKeyDown = function(event) {
   } else if (state.settings && event.keyCode === 48) {
     selectImage();
   } else if (state.settings && event.keyCode === 81) {
-    window[APP_ID].unmount();
+    window[version].unmount();
   } else if (state.settings && event.keyCode === 38) {
     state.position.y = state.position.y - 1;
     image.style.transform = `
@@ -137,15 +139,15 @@ document.addEventListener("mouseup", handleMouseUp);
 document.addEventListener("mousemove", handleMouseMove);
 document.body.appendChild(wrapper);
 
-if (!window[APP_ID]) {
-  window[APP_ID] = {};
+if (!window[version]) {
+  window[version] = {};
 }
 
-window[APP_ID].unmount = () => {
+window[version].unmount = () => {
   document.removeEventListener("keydown", handleKeyDown);
   document.removeEventListener("mousedown", handleMouseDown);
   document.removeEventListener("mouseup", handleMouseUp);
   document.removeEventListener("mousemove", handleMouseMove);
   wrapper.remove();
-  window[APP_ID].unmount = null;
+  window[version].unmount = null;
 };
