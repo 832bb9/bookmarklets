@@ -15,4 +15,4 @@ jobs:
       - name: Build
         run: npm run build
       - name: Deploy
-        run: npx gh-pages --dist build
+        run: npx gh-pages --dist build --repo ${{ github.repository }} --user "$(git log -1 --pretty=format:"%an <%ae>" HEAD)"
