@@ -11,10 +11,21 @@ const createApp = (renderApp, initialState = {}) => {
   let state = initialState;
 
   const effects = [];
+  const cleanups = [];
 
   let rerenderTimeoutId = null;
 
   const render = () => {
+    while (cleanups.length) {
+      const [cleanup] = cleanups.splice(0, 1);
+
+      if (typeof cleanup !== "function") {
+        continue;
+      }
+
+      cleanup();
+    }
+
     const update = (updater) => {
       const nextState = updater(state);
 
@@ -45,7 +56,11 @@ const createApp = (renderApp, initialState = {}) => {
     while (effects.length) {
       const [effect] = effects.splice(0, 1);
 
-      effect();
+      if (typeof effect !== "function") {
+        continue;
+      }
+
+      cleanups.push(effect());
     }
   };
 
@@ -96,6 +111,8 @@ const selectSquashAndMergeTitleInput = () => {
 
 const startInterval = () => {
   return setInterval(() => {
+    console.log("INTERVAL TICK");
+
     const updateBranchBtn = selectUpdateBranchBtn();
 
     if (updateBranchBtn) {
@@ -130,13 +147,16 @@ const startInterval = () => {
 };
 
 let intervalId = null;
+let autostart = true;
 
 createApp(
   ({ state, update, after }) => {
     after(() => {
-      if (!state.interval.autostart) {
+      if (!autostart) {
         return;
       }
+
+      autostart = false;
 
       intervalId = startInterval();
 
@@ -144,26 +164,50 @@ createApp(
         ...current,
         interval: {
           ...current.interval,
-          autostart: false,
           status: "pending",
         },
       }));
     });
 
+    after(() => {
+      const onToggleInterval = () => {
+        if (state.interval.status === "idle") {
+          intervalId = startInterval();
+
+          update((current) => ({
+            ...current,
+            interval: {
+              ...current.interval,
+              status: "pending",
+            },
+          }));
+        } else if (state.interval.status === "pending") {
+          clearInterval(intervalId);
+
+          update((current) => ({
+            ...current,
+            interval: {
+              ...current.interval,
+              status: "idle",
+            },
+          }));
+        }
+      };
+    });
+
     return `
-    <div style="position: fixed; right: 10px; bottom: 10px; padding: 10px; border-radius: 4px; border: 1px solid #000;">
+    <div style="position: fixed; right: 8px; bottom: 8px; padding: 8px; border-radius: 4px; border: 1px solid #000; background-color: #fff; color: #000">
       <div style="margin-bottom: 8px;">
-        INTERVAL STATUS: ${state.interval.status}
+        <button data-ref="toggle-interval" style="width: 100%;">Interval is "${state.interval.status}"</button>
       </div>
       <div>
-        ${state.updates.status === "pending" ? "Checking updates..." : ""}
+        CHECKING UPDATES: ${state.updates.status}
       </div>
     </div>
   `;
   },
   {
     interval: {
-      autostart: true,
       status: "idle",
     },
     updates: {
