@@ -16,7 +16,7 @@ const createApp = (renderApp, initialState = {}) => {
 
   const render = () => {
     const update = (updater) => {
-      const nextState = updater(state)
+      const nextState = updater(state);
 
       if (nextState === state) {
         return;
@@ -27,7 +27,7 @@ const createApp = (renderApp, initialState = {}) => {
       clearTimeout(rerenderTimeoutId);
       rerenderTimeoutId = setTimeout(() => {
         render();
-      }, 0)
+      }, 0);
     };
 
     const after = (callback) => {
@@ -127,54 +127,57 @@ const startInterval = () => {
       return;
     }
   }, INTERVAL_TIME);
-}
+};
 
 let intervalId = null;
 
-createApp(({state, update}) => {
-  after(() => {
-    if (!state.initialRender) {
-      return;
-    }
+createApp(
+  ({ state, update, after }) => {
+    after(() => {
+      if (!state.initialRender) {
+        return;
+      }
 
-    intervalId = startInterval();
+      intervalId = startInterval();
 
-    update((current) => ({
-      ...current,
-      interval: {
-        ...current.interval,
-        status: 'pending',
-      },
-    }))
-  })
+      update((current) => ({
+        ...current,
+        interval: {
+          ...current.interval,
+          status: "pending",
+        },
+      }));
+    });
 
-  after(() => {
-    if (!state.initialRender) {
-      return;
-    }
+    after(() => {
+      if (!state.initialRender) {
+        return;
+      }
 
-    update((current) => ({
-      ...current,
-      initialRender: false,
-    }))
-  })
+      update((current) => ({
+        ...current,
+        initialRender: false,
+      }));
+    });
 
-  return `
+    return `
     <div style="position: fixed; right: 10px; bottom: 10px; padding: 10px; border-radius: 4px; border: 1px solid #000;">
       <div style="margin-bottom: 8px;">
         INTERVAL STATUS: ${state.interval.status}
       </div>
       <div>
-        ${state.updates.status === 'pending' ? 'Checking updates...' : ''}
+        ${state.updates.status === "pending" ? "Checking updates..." : ""}
       </div>
     </div>
-  `
-}, {
-  initialRender: true,
-  interval: {
-    status: 'idle',
+  `;
   },
-  updates: {
-    status: 'idle',
-  },
-});
+  {
+    initialRender: true,
+    interval: {
+      status: "idle",
+    },
+    updates: {
+      status: "idle",
+    },
+  }
+);
