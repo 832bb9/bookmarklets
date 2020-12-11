@@ -49,7 +49,7 @@ fs.writeFileSync(
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Bookmarklets</title>
   </head>
-  <body><ul>${apps.map(renderApp).join('')}</ul></body>
+  <body><div>Last build: ${new Date().toUTCString()}</div><ul>${apps.map(renderApp).join('')}</ul></body>
 </html>
 `
 );
